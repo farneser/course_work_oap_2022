@@ -3,34 +3,46 @@
 
 #include "framework.h"
 #include "kursach1.h"
-#include <string.h>
+#include <string>
+#include <iostream>
+#include <fstream>
 
-#define MAX_LOADSTRING 1000
+#define MAX_LOADSTRING 100
+#define windowSizeX 400
+#define windowSizeY 600
+
 
 // Глобальные переменные:
 HINSTANCE hInst;                                // текущий экземпляр
 WCHAR szTitle[MAX_LOADSTRING];                  // Текст строки заголовка
 WCHAR szWindowClass[MAX_LOADSTRING];            // имя класса главного окна
 
-
 // Отправить объявления функций, включенных в этот модуль кода:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
-INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
+
+using namespace std;
+struct Row{
+    int id;
+    string lastName;
+    string sity;
+    string street;
+    int homeNum;
+    string time;
+    
+};
+
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
-    UNREFERENCED_PARAMETER(hPrevInstance);
-    UNREFERENCED_PARAMETER(lpCmdLine);
 
     // TODO: Разместите код здесь.
 
     // Инициализация глобальных строк
-    LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_KURSACH1, szWindowClass, MAX_LOADSTRING);
     MyRegisterClass(hInstance);
 
@@ -57,6 +69,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     return (int) msg.wParam;
 }
 
+
+
 //
 //  ФУНКЦИЯ: MyRegisterClass()
 //
@@ -76,7 +90,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_KURSACH1));
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
-    wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_KURSACH1);
+    wcex.lpszMenuName   = nullptr;
     wcex.lpszClassName  = szWindowClass;
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
@@ -97,9 +111,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // Сохранить маркер экземпляра в глобальной переменной
 
-   HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
-   SetWindowText(hWnd, "buikbvbbuihjbbjhbhj");
+   HWND hWnd = CreateWindowW(szWindowClass, (LPCWSTR)"Инкосация", WS_OVERLAPPEDWINDOW, 
+       CW_USEDEFAULT, 0, windowSizeX, windowSizeY, nullptr, nullptr, hInstance, nullptr,);
 
    if (!hWnd)
    {
@@ -112,70 +125,101 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    return TRUE;
 }
 
-//
-//  ФУНКЦИЯ: WndProc(HWND, UINT, WPARAM, LPARAM)
-//
-//  ЦЕЛЬ: Обрабатывает сообщения в главном окне.
-//
-//  WM_COMMAND  - обработать меню приложения
-//  WM_PAINT    - Отрисовка главного окна
-//  WM_DESTROY  - отправить сообщение о выходе и вернуться
-//
-//
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+
+using namespace std;
+
+LPCSTR GetString(string string)
 {
+    std::string tmp(string);
+    return tmp.c_str();
+}
+
+
+LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{   
+    setlocale(LC_CTYPE, "Russian_Russia.1251");
+    static HWND hBtn1, hBtn2;
+    static HWND hEdt1, hEdt2;
+    static HWND hStat;
+    static HWND hstat2;
+    static HWND hList;
+    char* str1 = new char[150];
+    
     switch (message)
     {
-    case WM_COMMAND:
-        {
-            int wmId = LOWORD(wParam);
-            // Разобрать выбор в меню:
-            switch (wmId)
-            {
-            case IDM_ABOUT:
-                DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-                break;
-            case IDM_EXIT:
-                DestroyWindow(hWnd);
-                break;
-            default:
-                return DefWindowProc(hWnd, message, wParam, lParam);
-            }
-        }
+    case WM_CREATE: // сообщение создания окна
+        hInst = ((LPCREATESTRUCT)lParam)->hInstance; // дескриптор приложения
+        //ShowWindow(hEdt1, SW_SHOWNORMAL);
+        
+        //hBtn1 = CreateWindow("button", "Назад", WS_CHILD | WS_VISIBLE | WS_BORDER, 450, 240, 120, 30, hWnd, 0, hInst, NULL);
+        //ShowWindow(hBtn1, SW_HIDE);
+        
+        //hBtn2 = CreateWindow("button", "Отображение данных", WS_CHILD | WS_VISIBLE | WS_BORDER, 230, 20, 160, 30, hWnd, 0, hInst, NULL);
+        //ShowWindow(hBtn2, SW_HIDE);
+        
+        //hStat = CreateWindow("static", "", WS_CHILD | WS_VISIBLE, 10, 10, 400, 300, hWnd, 0, hInst, NULL);
+        //ShowWindow(hStat, SW_HIDE);
         break;
     case WM_PAINT:
         {
             PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hWnd, &ps);
-            // TODO: Добавьте сюда любой код прорисовки, использующий HDC...
+            HDC hdc = BeginPaint(hWnd, &ps);            
+            string path = "C:\\Users\\farneser\\Desktop\\под курсач.txt";
+            string stroka;
+            int countOfStr = 4;
+
+            ifstream file(path);
+            string* fileArr = new string[countOfStr];
+            int ind = 0;
+            while (ind > 10) {
+                fileArr[ind] = stroka;
+                ind++;
+            }
+            file.close();
+            //int len = sizeof(fileArr) / sizeof(fileArr[0]);
+            //len = len++;
+            //len = 10;
+            //int len = 10;
+
+            const int len = 30;
+            const int strings = 5;
+            const char ch = '\n';
+            char mass[len][strings];
+
+            ifstream fs(path, ios::in | ios::binary);
+
+            if (!fs) return 1; //Если ошибка открытия файла, то завершаем программу
+
+
+            for (int i = 1; i < len; i++)
+            {
+                char c[256];
+                //strcpy(c, fileArr[i].c_str());
+                const char* p = fileArr[i].data();
+                
+                char text[255] = "0";
+                MoveToEx(hdc, 0, i * 50, (LPPOINT)NULL);
+                LineTo(hdc, windowSizeY, i * 50);
+                TextOut(hdc, 5, i * 50 - 40, mass[i], sizeof(mass[i])/sizeof(mass[i][0]));
+            }
             EndPaint(hWnd, &ps);
+            fs.close(); //Закрываем файл
         }
         break;
     case WM_DESTROY:
-        PostQuitMessage(0);
+        //PostQuitMessage(0);
         break;
+    case WM_GETMINMAXINFO:
+    {
+        LPMINMAXINFO lpMMI = (LPMINMAXINFO)lParam;
+        lpMMI->ptMinTrackSize.x = windowSizeX;
+        lpMMI->ptMinTrackSize.y = windowSizeY;
+        lpMMI->ptMaxTrackSize.x = windowSizeX;
+        lpMMI->ptMaxTrackSize.y = windowSizeY;
+    }
+    break;
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }
     return 0;
-}
-
-// Обработчик сообщений для окна "О программе".
-INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    UNREFERENCED_PARAMETER(lParam);
-    switch (message)
-    {
-    case WM_INITDIALOG:
-        return (INT_PTR)TRUE;
-
-    case WM_COMMAND:
-        if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
-        {
-            EndDialog(hDlg, LOWORD(wParam));
-            return (INT_PTR)TRUE;
-        }
-        break;
-    }
-    return (INT_PTR)FALSE;
 }
