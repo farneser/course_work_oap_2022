@@ -15,6 +15,10 @@
 #define IDC_MYICON				2
 #ifndef IDC_STATIC
 #define IDC_STATIC				-1
+
+#define MAX_LOADSTRING 100
+#define windowSizeX 630
+#define windowSizeY 380
 #endif
 // Следующие стандартные значения для новых объектов
 //

@@ -13,3 +13,12 @@
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
+#include "kursach1.h"
+#include <string>
+#include <fstream>
+#include <windows.h>
+#include <string>
+#include <commdlg.h>
+#include <shobjidl.h> 
+#include "func.h"
+#include "perem.h"
