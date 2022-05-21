@@ -17,8 +17,16 @@ static HWND hStat;
 static HWND hstat2;
 static HWND hList;
 static HWND btnBack;
+static HWND btnAdd;
 static HWND btnShow;
 static HWND btnFile;
+static HWND btnEdit1;
+static HWND btnEdit2;
+static HWND btnEdit3;
+static HWND btnEdit4;
+static HWND btnEdit5;
+static HWND btnEdit6;
+
 HDC hdc;
 PAINTSTRUCT ps;
 char* strIn = new char[150];

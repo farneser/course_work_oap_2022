@@ -19,6 +19,7 @@ int  WINAPI WinMain(HINSTANCE  hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	RegisterClass(&w); // регистрация класса окна
 	// Создание окна
 	hwnd = CreateWindow("MyClass", "Инкосация", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0, 630, 380, NULL, NULL, hInstance, NULL);
+	
 	ShowWindow(hwnd, nCmdShow);
 	UpdateWindow(hwnd);        
 
@@ -52,10 +53,27 @@ LONG WINAPI WndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam) {
 		hInst = ((LPCREATESTRUCT)lparam)->hInstance; // дескриптор приложения
 		ShowWindow(hEdt1, SW_SHOWNORMAL);
 
+		btnShow = CreateWindow("button", "Отображение данных", WS_CHILD | WS_VISIBLE | WS_BORDER,	230, 20, 160, 30, hwnd, 0, hInst, NULL);
+		btnFile = CreateWindow("button", "Выбрать файл", WS_CHILD | WS_VISIBLE | WS_BORDER,			230, 60, 160, 30, hwnd, 0, hInst, NULL);
+		btnAdd = CreateWindow("button", "Добавить", WS_CHILD | WS_VISIBLE | WS_BORDER,				230, 100, 160, 30, hwnd, 0, hInst, NULL);
+		
+		btnEdit1 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 230, 20, 160, 30, hwnd, 0, hInst, NULL);
+		btnEdit2 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 230, 60, 160, 30, hwnd, 0, hInst, NULL);
+		btnEdit3 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 230, 100, 160, 30, hwnd, 0, hInst, NULL);
+		btnEdit4 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 230, 140, 160, 30, hwnd, 0, hInst, NULL);
+		btnEdit5 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 230, 180, 160, 30, hwnd, 0, hInst, NULL);
+		btnEdit6 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 230, 220, 160, 30, hwnd, 0, hInst, NULL);
+		
 		btnBack = CreateWindow("button", "Назад", WS_CHILD | WS_VISIBLE | WS_BORDER, 450, 240, 120, 30, hwnd, 0, hInst, NULL);
-		btnShow = CreateWindow("button", "Отображение данных", WS_CHILD | WS_VISIBLE | WS_BORDER, 230, 20, 160, 30, hwnd, 0, hInst, NULL);
-		btnFile = CreateWindow("button", "Выбрать файл", WS_CHILD | WS_VISIBLE | WS_BORDER, 230, 60, 160, 30, hwnd, 0, hInst, NULL);
 		hStat = CreateWindow("static", "", WS_CHILD | WS_VISIBLE, 10, 10, 400, 300, hwnd, 0, hInst, NULL);
+
+		
+		ShowWindow(btnEdit1, SW_HIDE);
+		ShowWindow(btnEdit2, SW_HIDE);
+		ShowWindow(btnEdit3, SW_HIDE);
+		ShowWindow(btnEdit4, SW_HIDE);
+		ShowWindow(btnEdit5, SW_HIDE);
+		ShowWindow(btnEdit6, SW_HIDE);
 
 		ShowWindow(btnBack, SW_HIDE);
 		ShowWindow(btnShow, SW_SHOWNORMAL);
@@ -66,8 +84,16 @@ LONG WINAPI WndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam) {
 		{
 			ShowWindow(btnShow, SW_SHOWNORMAL);
 			ShowWindow(btnFile, SW_SHOWNORMAL);
+			ShowWindow(btnAdd, SW_SHOWNORMAL);
 			ShowWindow(hStat, SW_HIDE);
 			ShowWindow(btnBack, SW_HIDE);
+
+			ShowWindow(btnEdit1, SW_HIDE);
+			ShowWindow(btnEdit2, SW_HIDE);
+			ShowWindow(btnEdit3, SW_HIDE);
+			ShowWindow(btnEdit4, SW_HIDE);
+			ShowWindow(btnEdit5, SW_HIDE);
+			ShowWindow(btnEdit6, SW_HIDE);
 		}
 		if (lparam == (LPARAM)btnFile)    // если нажали на кнопку
 		{
@@ -92,6 +118,22 @@ LONG WINAPI WndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam) {
 			EnableWindow(hwnd, true);
 			SetForegroundWindow(hwnd);
 		}
+		if (lparam == (LPARAM)btnAdd)    // если нажали на кнопку
+		{
+			ShowWindow(btnShow, SW_HIDE);
+			ShowWindow(btnFile, SW_HIDE);
+			ShowWindow(btnAdd, SW_HIDE);
+
+			ShowWindow(btnBack, SW_SHOWNORMAL);
+			ShowWindow(btnEdit1, SW_SHOWNORMAL);
+			ShowWindow(btnEdit2, SW_SHOWNORMAL);
+			ShowWindow(btnEdit3, SW_SHOWNORMAL);
+			ShowWindow(btnEdit4, SW_SHOWNORMAL);
+			ShowWindow(btnEdit5, SW_SHOWNORMAL);
+			ShowWindow(btnEdit6, SW_SHOWNORMAL);
+
+
+		}
 		if (lparam == (LPARAM)btnShow)    // если нажали на кнопку
 		{
 			ShowWindow(btnShow, SW_HIDE);
@@ -100,7 +142,7 @@ LONG WINAPI WndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam) {
 			ShowWindow(btnBack, SW_SHOWNORMAL);
 
 			strcpy(strExit, "");
-
+			//string *lines = new string[];
 			ifstream in(path); // окрываем файл для чтения
 			if (in.is_open())
 			{
