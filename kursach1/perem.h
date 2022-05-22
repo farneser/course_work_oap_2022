@@ -5,7 +5,7 @@
 HINSTANCE hInst;
 WCHAR szTitle[MAX_LOADSTRING];
 WCHAR szWindowClass[MAX_LOADSTRING];
-char path[128] = "C:\\Users\\farneser\\Desktop\\kurs.txt";
+char path[255] = "C:\\Users\\farneser\\Desktop\\kurs.txt";
 
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
@@ -17,15 +17,17 @@ static HWND hStat;
 static HWND hstat2;
 static HWND hList;
 static HWND btnBack;
+static HWND btnAddOK;
 static HWND btnAdd;
 static HWND btnShow;
 static HWND btnFile;
-static HWND btnEdit1;
-static HWND btnEdit2;
-static HWND btnEdit3;
-static HWND btnEdit4;
-static HWND btnEdit5;
-static HWND btnEdit6;
+
+static HWND Edit1;
+static HWND Edit2;
+static HWND Edit3;
+static HWND Edit4;
+static HWND Edit5;
+static HWND Edit6;
 
 HDC hdc;
 PAINTSTRUCT ps;

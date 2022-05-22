@@ -7,7 +7,7 @@ int  WINAPI WinMain(HINSTANCE  hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 {
 	HWND hwnd; // дескриптор окна
 	MSG msg;   // структура сообщения
-	WNDCLASS w; 
+	WNDCLASS w;
 	TCHAR szFile[260] = { 0 };       // if using TCHAR macros
 
 	memset(&w, 0, sizeof(WNDCLASS)); // очистка памяти для структуры
@@ -19,9 +19,9 @@ int  WINAPI WinMain(HINSTANCE  hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	RegisterClass(&w); // регистрация класса окна
 	// Создание окна
 	hwnd = CreateWindow("MyClass", "Инкосация", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0, 630, 380, NULL, NULL, hInstance, NULL);
-	
+
 	ShowWindow(hwnd, nCmdShow);
-	UpdateWindow(hwnd);        
+	UpdateWindow(hwnd);
 
 	while (GetMessage(&msg, NULL, 0, 0)) {
 		TranslateMessage(&msg);
@@ -38,7 +38,12 @@ using namespace std;
 // Функция обработки сообщений
 LONG WINAPI WndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam) {
 	setlocale(LC_ALL, "ru");
-	TCHAR StrA[20];
+	TCHAR Edit1TXT[64];
+	TCHAR Edit2TXT[64];
+	TCHAR Edit3TXT[64];
+	TCHAR Edit4TXT[64];
+	TCHAR Edit5TXT[64];
+	TCHAR Edit6TXT[64];
 	string line;
 	LPCTSTR lstr;
 	int a, b, sum, Len;
@@ -53,55 +58,58 @@ LONG WINAPI WndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam) {
 		hInst = ((LPCREATESTRUCT)lparam)->hInstance; // дескриптор приложения
 		ShowWindow(hEdt1, SW_SHOWNORMAL);
 
-		btnShow = CreateWindow("button", "Отображение данных", WS_CHILD | WS_VISIBLE | WS_BORDER,	230, 20, 160, 30, hwnd, 0, hInst, NULL);
-		btnFile = CreateWindow("button", "Выбрать файл", WS_CHILD | WS_VISIBLE | WS_BORDER,			230, 60, 160, 30, hwnd, 0, hInst, NULL);
-		btnAdd = CreateWindow("button", "Добавить", WS_CHILD | WS_VISIBLE | WS_BORDER,				230, 100, 160, 30, hwnd, 0, hInst, NULL);
-		
-		btnEdit1 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 230, 20, 160, 30, hwnd, 0, hInst, NULL);
-		btnEdit2 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 230, 60, 160, 30, hwnd, 0, hInst, NULL);
-		btnEdit3 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 230, 100, 160, 30, hwnd, 0, hInst, NULL);
-		btnEdit4 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 230, 140, 160, 30, hwnd, 0, hInst, NULL);
-		btnEdit5 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 230, 180, 160, 30, hwnd, 0, hInst, NULL);
-		btnEdit6 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 230, 220, 160, 30, hwnd, 0, hInst, NULL);
-		
+		btnShow = CreateWindow("button", "Отображение данных", WS_CHILD | WS_VISIBLE | WS_BORDER, 230, 20, 160, 30, hwnd, 0, hInst, NULL);
+		btnFile = CreateWindow("button", "Выбрать файл", WS_CHILD | WS_VISIBLE | WS_BORDER, 230, 60, 160, 30, hwnd, 0, hInst, NULL);
+		btnAdd = CreateWindow("button", "Добавить", WS_CHILD | WS_VISIBLE | WS_BORDER, 230, 100, 160, 30, hwnd, 0, hInst, NULL);
+
+		Edit1 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 230, 20, 160, 30, hwnd, 0, hInst, NULL);
+		Edit2 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 230, 60, 160, 30, hwnd, 0, hInst, NULL);
+		Edit3 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 230, 100, 160, 30, hwnd, 0, hInst, NULL);
+		Edit4 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 230, 140, 160, 30, hwnd, 0, hInst, NULL);
+		Edit5 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 230, 180, 160, 30, hwnd, 0, hInst, NULL);
+		Edit6 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 230, 220, 160, 30, hwnd, 0, hInst, NULL);
+
+		btnAddOK = CreateWindow("button", "Добавить", WS_CHILD | WS_VISIBLE | WS_BORDER, 450, 200, 120, 30, hwnd, 0, hInst, NULL);
 		btnBack = CreateWindow("button", "Назад", WS_CHILD | WS_VISIBLE | WS_BORDER, 450, 240, 120, 30, hwnd, 0, hInst, NULL);
 		hStat = CreateWindow("static", "", WS_CHILD | WS_VISIBLE, 10, 10, 400, 300, hwnd, 0, hInst, NULL);
 
-		
-		ShowWindow(btnEdit1, SW_HIDE);
-		ShowWindow(btnEdit2, SW_HIDE);
-		ShowWindow(btnEdit3, SW_HIDE);
-		ShowWindow(btnEdit4, SW_HIDE);
-		ShowWindow(btnEdit5, SW_HIDE);
-		ShowWindow(btnEdit6, SW_HIDE);
 
+		ShowWindow(Edit1, SW_HIDE);
+		ShowWindow(Edit2, SW_HIDE);
+		ShowWindow(Edit3, SW_HIDE);
+		ShowWindow(Edit4, SW_HIDE);
+		ShowWindow(Edit5, SW_HIDE);
+		ShowWindow(Edit6, SW_HIDE);
+
+		ShowWindow(btnAddOK, SW_HIDE);
 		ShowWindow(btnBack, SW_HIDE);
 		ShowWindow(btnShow, SW_SHOWNORMAL);
 		ShowWindow(hStat, SW_HIDE);
 		break;
 	case WM_COMMAND:  // сообщение о команде
-		if (lparam == (LPARAM)btnBack)    // если нажали на кнопку
+		if (lparam == (LPARAM)btnAddOK)
 		{
-			ShowWindow(btnShow, SW_SHOWNORMAL);
-			ShowWindow(btnFile, SW_SHOWNORMAL);
-			ShowWindow(btnAdd, SW_SHOWNORMAL);
-			ShowWindow(hStat, SW_HIDE);
-			ShowWindow(btnBack, SW_HIDE);
+			GetWindowText(Edit1, Edit1TXT, 20);
+			GetWindowText(Edit2, Edit2TXT, 20);
+			GetWindowText(Edit3, Edit3TXT, 20);
+			GetWindowText(Edit4, Edit4TXT, 20);
+			GetWindowText(Edit5, Edit5TXT, 20);
+			GetWindowText(Edit6, Edit6TXT, 20);
 
-			ShowWindow(btnEdit1, SW_HIDE);
-			ShowWindow(btnEdit2, SW_HIDE);
-			ShowWindow(btnEdit3, SW_HIDE);
-			ShowWindow(btnEdit4, SW_HIDE);
-			ShowWindow(btnEdit5, SW_HIDE);
-			ShowWindow(btnEdit6, SW_HIDE);
+			ofstream out;
+			out.open(path, std::ios::app);
+			out << endl << "|" << Edit1TXT << "\t|" << Edit2TXT << "\t|" << Edit3TXT << "\t|" << Edit4TXT << "\t|"
+				<< Edit5TXT << "\t|" << Edit6TXT << "\t|";
+			out.close();
+
+			ShowWindow(btnAddOK, SW_HIDE);
+			lparam = (LPARAM)btnBack;
 		}
-		if (lparam == (LPARAM)btnFile)    // если нажали на кнопку
+		if (lparam == (LPARAM)btnFile)    
 		{
 			EnableWindow(hwnd, FALSE);
-			// Show the Open dialog box.
 			hr = pFileOpen->Show(NULL);
 
-			// Get the file name from the dialog box.
 			if (SUCCEEDED(hr))
 			{
 				IShellItem* pItem;
@@ -118,23 +126,23 @@ LONG WINAPI WndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam) {
 			EnableWindow(hwnd, true);
 			SetForegroundWindow(hwnd);
 		}
-		if (lparam == (LPARAM)btnAdd)    // если нажали на кнопку
+		if (lparam == (LPARAM)btnAdd)    
 		{
+
 			ShowWindow(btnShow, SW_HIDE);
 			ShowWindow(btnFile, SW_HIDE);
 			ShowWindow(btnAdd, SW_HIDE);
 
+			ShowWindow(btnAddOK, SW_SHOWNORMAL);
 			ShowWindow(btnBack, SW_SHOWNORMAL);
-			ShowWindow(btnEdit1, SW_SHOWNORMAL);
-			ShowWindow(btnEdit2, SW_SHOWNORMAL);
-			ShowWindow(btnEdit3, SW_SHOWNORMAL);
-			ShowWindow(btnEdit4, SW_SHOWNORMAL);
-			ShowWindow(btnEdit5, SW_SHOWNORMAL);
-			ShowWindow(btnEdit6, SW_SHOWNORMAL);
-
-
+			ShowWindow(Edit1, SW_SHOWNORMAL);
+			ShowWindow(Edit2, SW_SHOWNORMAL);
+			ShowWindow(Edit3, SW_SHOWNORMAL);
+			ShowWindow(Edit4, SW_SHOWNORMAL);
+			ShowWindow(Edit5, SW_SHOWNORMAL);
+			ShowWindow(Edit6, SW_SHOWNORMAL);
 		}
-		if (lparam == (LPARAM)btnShow)    // если нажали на кнопку
+		if (lparam == (LPARAM)btnShow)    
 		{
 			ShowWindow(btnShow, SW_HIDE);
 			ShowWindow(btnFile, SW_HIDE);
@@ -142,18 +150,42 @@ LONG WINAPI WndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam) {
 			ShowWindow(btnBack, SW_SHOWNORMAL);
 
 			strcpy(strExit, "");
-			//string *lines = new string[];
+			string* lines = nullptr;
+			int fl = 0;
 			ifstream in(path); // окрываем файл для чтения
 			if (in.is_open())
 			{
 				while (getline(in, line))
 				{
+					//lines[fl] = line.c_str();
 					strcat(strExit, line.c_str());
 					strcat(strExit, "\n");
+					//++fl;
 				}
 			}
 			in.close();
+			//for (int i = 0; i < sizeof(lines) / sizeof(lines[0]); i++)
+			//{
+				//strcat(strExit, lines[i].c_str());
+				//strcat(strExit, "\n");
+			//}
+
 			SetWindowTextA(hStat, strExit);
+		}
+		if (lparam == (LPARAM)btnBack)
+		{
+			ShowWindow(btnShow, SW_SHOWNORMAL);
+			ShowWindow(btnFile, SW_SHOWNORMAL);
+			ShowWindow(btnAdd, SW_SHOWNORMAL);
+			ShowWindow(hStat, SW_HIDE);
+			ShowWindow(btnBack, SW_HIDE);
+
+			ShowWindow(Edit1, SW_HIDE);
+			ShowWindow(Edit2, SW_HIDE);
+			ShowWindow(Edit3, SW_HIDE);
+			ShowWindow(Edit4, SW_HIDE);
+			ShowWindow(Edit5, SW_HIDE);
+			ShowWindow(Edit6, SW_HIDE);
 		}
 		break;
 	case WM_PAINT: // перерисовка окна
