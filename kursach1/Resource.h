@@ -17,7 +17,7 @@
 #define IDC_STATIC				-1
 
 #define MAX_LOADSTRING 100
-#define windowSizeX 630
+#define windowSizeX 730
 #define windowSizeY 380
 #endif
 // Следующие стандартные значения для новых объектов
