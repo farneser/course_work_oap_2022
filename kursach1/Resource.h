@@ -17,8 +17,14 @@
 #define IDC_STATIC				-1
 
 #define MAX_LOADSTRING 100
-#define windowSizeX 730
-#define windowSizeY 380
+#define windowSizeX 830
+#define windowSizeY 500
+#define MAX_COUNT_OF_SPLITS		6
+#define On_Menu_ClickedFILE		3370
+#define On_Menu_ClickedSHOW		3371
+#define On_Menu_ClickedEXIT		3372
+#define On_Menu_ClickedADD		3373
+#define On_Menu_ClickedEDIT		3374
 #endif
 // Следующие стандартные значения для новых объектов
 //

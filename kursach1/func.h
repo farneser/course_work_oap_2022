@@ -1,5 +1,6 @@
 #pragma once
 #include "framework.h"
+#include <string>
 
 int StrToInt(char* s)
 {
@@ -57,4 +58,37 @@ char* IntToStr(int n)
 	return(temp);
 }
 // Стартовая функция
+
+// length of the string  
+int len(std::string strEAXCSAE) {
+	int length = 0;
+	for (int i = 0; strEAXCSAE[i] != '\0'; i++)
+	{
+		length++;
+	}
+	return length;
+}
+using namespace std;
+// custom split() function  
+string* split(string str, char *seperator)
+{
+	string* array = new string[6];
+	int currIndex = 0, i = 0;
+	int startIndex = 0, endIndex = 0;
+	while (i <= len(str)-4)
+	{
+		if (str[i] == str[i] == seperator[0] || seperator[1]|| str[i] == seperator[2] || str[i] == seperator[3] || i == len(str))
+		{
+			endIndex = i;
+			string subStr = "";
+			subStr.append(str, startIndex, endIndex - startIndex);
+			array[currIndex] = subStr;
+			currIndex += 1;
+			startIndex = endIndex + 1;
+		}
+		i++;
+	}
+	return array;
+}
+
 
