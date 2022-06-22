@@ -1,6 +1,4 @@
 ﻿//{{NO_DEPENDENCIES}}
-// Включаемый файл, созданный в Microsoft Visual C++.
-// Используется kursach1.rc
 
 #define IDS_APP_TITLE			103
 
@@ -18,16 +16,18 @@
 
 #define MAX_LOADSTRING 100
 #define windowSizeX 830
-#define windowSizeY 500
+#define windowSizeY 499
+
 #define MAX_COUNT_OF_SPLITS		6
 #define On_Menu_ClickedFILE		3370
 #define On_Menu_ClickedSHOW		3371
 #define On_Menu_ClickedEXIT		3372
 #define On_Menu_ClickedADD		3373
 #define On_Menu_ClickedEDIT		3374
+#define On_Menu_ClickedTEST		3375
+#define On_Menu_ClickedCLEAN	3376
 #endif
-// Следующие стандартные значения для новых объектов
-//
+
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 

@@ -5,55 +5,31 @@
 HINSTANCE hInst;
 WCHAR szTitle[MAX_LOADSTRING];
 WCHAR szWindowClass[MAX_LOADSTRING];
-char path[256] = "C:\\Users\\farneser\\Desktop\\kurs.txt";
+
+HWND hwnd;
+MSG msg;
+WNDCLASS w;
+HRESULT hr;
+HDC hdc;
+PAINTSTRUCT ps;
+HMENU root;
 
 ATOM MyRegisterClass(HINSTANCE hInstance);
 BOOL InitInstance(HINSTANCE, int);
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
-static HWND hEdt1;
-static HWND hEdt2;
-static HWND hStat;
-static HWND hstat2;
-static HWND hList;
-static HWND btnBack;
-static HWND btnAddOK;
-static HWND btnRefresh;
-static HWND btnDeleteOK;
-static HWND btnAdd;
-static HWND btnShow;
-static HWND btnFile;
-static HWND btnDelete;
-static HWND btnEdit;
-static HWND btnEditOK;
+static HWND hEdt1, hEdt2, hStat, hStatMAIN, hStatSEARCH, hList, btnBack, btnAddOK,
+btnDeleteOK, btnRefresh, btnAdd, btnShow, btnFile, btnDelete, btnEdit, btnSearch,
+btnEditOK, Edit1, Edit2, Edit3, Edit4, Edit5, Edit6, deleteEdit, searchEdit;
 
-static HWND Edit1;
-static HWND Edit2;
-static HWND Edit3;
-static HWND Edit4;
-static HWND Edit5;
-static HWND Edit6;
+string to_add_2, to_add_3, to_add_4, to_add_5, to_add_6, line, searchSTR = "|";
 
-static HWND deleteEdit;
-
-static HWND Show1;
-static HWND Show2;
-static HWND Show3;
-static HWND Show4;
-static HWND Show5;
-static HWND Show6;
-
-
-HDC hdc;
-PAINTSTRUCT ps;
 char* strIn = new char[8095];
 char* strExit = new char[8095];
-int countOfLinesInFile = 0;
-int fl = 0;
-int fl1 = 0;
-int strings = 0;
-int maxLen = 0;
-char seperator[] = "&^)*";
-const char LIIIIIIIIIIIIIINE[] = "----------------------------------------------------------------------------------------------------------------------------";
-TCHAR lineToDel[64];
-int lineNToDel;
+
+int fl = 0, fl1 = 0, strings = 0, maxLen = 0, lineNToDel, countOfLinesInFile;
+char seperator[] = "&^)*", LIIIIIIIIIIIIIINE[155], path[256] = "";
+
+TCHAR Edit1TXT[64], Edit2TXT[64], Edit3TXT[64], Edit4TXT[64], Edit5TXT[64], Edit6TXT[64], lineToDel[64];
+char mainTXT[] = "Вас приветствует мастер работы налогового инспектора\ngithub.com/farneser\n(курсовая работа появистя там только после сдачи)";
+TCHAR* searchEditBase = (TCHAR*)"";

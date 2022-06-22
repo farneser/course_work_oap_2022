@@ -4,9 +4,9 @@
 
 int StrToInt(char* s)
 {
-	int temp = 0; // число
+	int temp = 0;
 	int i = 0;
-	int sign = 0; // знак числа 0- положительное, 1 - отрицательное
+	int sign = 0;
 	if (s[i] == '-')
 	{
 		sign = 1;
@@ -23,7 +23,8 @@ int StrToInt(char* s)
 		temp = -temp;
 	return(temp);
 }
-// Функция преобразования числа в строку
+
+
 char* IntToStr(int n)
 {
 	char s[40], t, * temp;
@@ -57,9 +58,9 @@ char* IntToStr(int n)
 	temp[k] = '\0';
 	return(temp);
 }
-// Стартовая функция
 
-// length of the string  
+
+
 int len(std::string strEAXCSAE) {
 	int length = 0;
 	for (int i = 0; strEAXCSAE[i] != '\0'; i++)
@@ -68,16 +69,17 @@ int len(std::string strEAXCSAE) {
 	}
 	return length;
 }
+
+
 using namespace std;
-// custom split() function  
-string* split(string str, char *seperator)
+string* split(string str, char* seperator)
 {
 	string* array = new string[6];
 	int currIndex = 0, i = 0;
 	int startIndex = 0, endIndex = 0;
-	while (i <= len(str)-4)
+	while (i <= len(str) - 4)
 	{
-		if (str[i] == str[i] == seperator[0] || seperator[1]|| str[i] == seperator[2] || str[i] == seperator[3] || i == len(str))
+		if (str[i] == str[i] == seperator[0] || seperator[1] || str[i] == seperator[2] || str[i] == seperator[3] || i == len(str))
 		{
 			endIndex = i;
 			string subStr = "";
@@ -91,4 +93,14 @@ string* split(string str, char *seperator)
 	return array;
 }
 
+int len(TCHAR* str) {
+	return sizeof(str) / sizeof(str[0]);
+}
 
+BOOL isStrInLine(std::string line, string search) {
+	if (line.find(search) <= line.length())
+	{
+		return true;
+	}
+	return false;
+}
