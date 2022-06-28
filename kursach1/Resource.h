@@ -25,7 +25,7 @@
 #define On_Menu_ClickedADD		3373
 #define On_Menu_ClickedEDIT		3374
 #define On_Menu_ClickedTEST		3375
-#define On_Menu_ClickedCLEAN	3376
+#define On_Menu_ClickedABOUT	3376
 #endif
 
 #ifdef APSTUDIO_INVOKED

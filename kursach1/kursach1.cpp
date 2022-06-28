@@ -4,12 +4,12 @@
 
 int  WINAPI WinMain(HINSTANCE  hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-
 	TCHAR szFile[260] = { 0 };
 	for (int i = 0; i < 155; i++)
 	{
 		LIIIIIIIIIIIIIINE[i] = '-';
 	}
+	strcpy(path, "kurs.txt");
 	memset(&w, 0, sizeof(WNDCLASS));
 	w.style = CS_HREDRAW | CS_VREDRAW;
 	w.lpfnWndProc = WndProc;
@@ -17,16 +17,13 @@ int  WINAPI WinMain(HINSTANCE  hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	w.hbrBackground = CreateSolidBrush(0x00FFFFFF);
 	w.lpszClassName = "MyClass";
 	RegisterClass(&w);
-
-	hwnd = CreateWindow("MyClass", "Налоговый инспектор", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0, 630, 380, NULL, NULL, hInstance, NULL);
-	//string titleP = path;
-	//string titleA = "Налоговый инспектор\t";
-	//string title = titleA + titleP;
-	//SetWindowTextA(hwnd, title.c_str());
-
+	hwnd = CreateWindow("MyClass", "Автоматизированное рабочее место налогового инспектора", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0, 630, 380, NULL, NULL, hInstance, NULL);
+	string titleP = path;
+	string titleA = "Автоматизированное рабочее место налогового инспектора\t";
+	string title = titleA + titleP;
+	SetWindowTextA(hwnd, title.c_str());
 	ShowWindow(hwnd, nCmdShow);
 	UpdateWindow(hwnd);
-
 	while (GetMessage(&msg, NULL, 0, 0)) {
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
@@ -38,7 +35,6 @@ int  WINAPI WinMain(HINSTANCE  hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 using namespace std;
 LONG WINAPI WndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam) {
 	setlocale(LC_ALL, "ru");
-	//char path[256] = "C:\\Users\\farneser\\Desktop\\kurs.txt";
 	IFileOpenDialog* pFileOpen;
 	root = CreateMenu();
 	hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE);
@@ -46,7 +42,6 @@ LONG WINAPI WndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam) {
 	switch (Message) {
 	case WM_CREATE:
 		hInst = ((LPCREATESTRUCT)lparam)->hInstance;
-
 		btnAddOK = CreateWindow("button", "Добавить", WS_CHILD | WS_VISIBLE | WS_BORDER,
 			645, 360, 160, 30, hwnd, 0, hInst, NULL);
 		btnDeleteOK = CreateWindow("button", "Удалить", WS_CHILD | WS_VISIBLE | WS_BORDER,
@@ -73,30 +68,27 @@ LONG WINAPI WndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam) {
 			235, 210, 345, 50, hwnd, 0, hInst, NULL);
 		btnSearch = CreateWindow("button", "Поиск", WS_CHILD | WS_VISIBLE | WS_BORDER,
 			645, 110, 160, 30, hwnd, 0, hInst, NULL);
-
-		Edit1 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 10,	 405, 55,  25, hwnd, 0, hInst, NULL);
-		Edit2 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 70,  405, 105, 25, hwnd, 0, hInst, NULL);
+		Edit1 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 10, 405, 55, 25, hwnd, 0, hInst, NULL);
+		Edit2 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 70, 405, 105, 25, hwnd, 0, hInst, NULL);
 		Edit3 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 180, 405, 105, 25, hwnd, 0, hInst, NULL);
 		Edit4 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 290, 405, 105, 25, hwnd, 0, hInst, NULL);
 		Edit5 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 400, 405, 160, 25, hwnd, 0, hInst, NULL);
-		Edit6 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 565, 405, 55,  25, hwnd, 0, hInst, NULL);
-
+		Edit6 = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 565, 405, 55, 25, hwnd, 0, hInst, NULL);
 		deleteEdit = CreateWindow("edit", "", WS_CHILD | WS_VISIBLE | WS_BORDER, 645, 10, 30, 30, hwnd, 0, hInst, NULL);
 		searchEdit = CreateWindow("edit", searchEditBase, WS_CHILD | WS_VISIBLE | WS_BORDER, 645, 70, 160, 30, hwnd, 0, hInst, NULL);
-
 		AppendMenu(root, MF_STRING, On_Menu_ClickedFILE, "Выбрать Файл");
 		AppendMenu(root, MF_STRING, On_Menu_ClickedSHOW, "Обображение данных");
 		AppendMenu(root, MF_STRING, On_Menu_ClickedADD, "Добавить строку");
 		AppendMenu(root, MF_STRING, On_Menu_ClickedEDIT, "Изменить строку");
+		AppendMenu(root, MF_STRING, On_Menu_ClickedABOUT, "Информация");
 		AppendMenu(root, MF_STRING, On_Menu_ClickedEXIT, "Выход");
 		SetMenu(hwnd, root);
-
-		//ShowWindow(Edit1, SW_HIDE);
-		//ShowWindow(Edit2, SW_HIDE);
-		//ShowWindow(Edit3, SW_HIDE);
-		//ShowWindow(Edit4, SW_HIDE);
-		//ShowWindow(Edit5, SW_HIDE);
-		//ShowWindow(Edit6, SW_HIDE);
+		ShowWindow(Edit1, SW_HIDE);
+		ShowWindow(Edit2, SW_HIDE);
+		ShowWindow(Edit3, SW_HIDE);
+		ShowWindow(Edit4, SW_HIDE);
+		ShowWindow(Edit5, SW_HIDE);
+		ShowWindow(Edit6, SW_HIDE);
 		ShowWindow(btnFile, SW_SHOWNORMAL);
 		ShowWindow(btnSearch, SW_HIDE);
 		ShowWindow(hStatSEARCH, SW_HIDE);
@@ -110,7 +102,6 @@ LONG WINAPI WndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam) {
 		ShowWindow(btnShow, SW_SHOWNORMAL);
 		ShowWindow(hStat, SW_HIDE);
 		break;
-
 	case WM_COMMAND:
 		switch (wparam)
 		{
@@ -129,15 +120,16 @@ LONG WINAPI WndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam) {
 		case On_Menu_ClickedEDIT:
 			lparam = (LPARAM)btnEdit;
 			break;
+		case On_Menu_ClickedABOUT:
+			MessageBox(NULL, "Данная программа разработана для курсового проекта по предмету \"Основы алгоритмизации и программирования\" учащегося Брестского филлиата Частного учреждения образования \"КОЛЛЕДЖ БИЗНЕСА И ПРАВА\", 2 курса, группы Т-091, Черновым Александром Евгеньевичем", "О программе", MB_OK);
+			break;
 		default:
 			break;
 		}
-
 		if (lparam == (LPARAM)btnFile)
 		{
 			EnableWindow(hwnd, false);
 			hr = pFileOpen->Show(NULL);
-
 			if (SUCCEEDED(hr))
 			{
 				IShellItem* pItem;
@@ -155,13 +147,12 @@ LONG WINAPI WndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam) {
 			SetForegroundWindow(hwnd);
 			lparam = (LPARAM)btnShow;
 			string titleP = path;
-			string titleA = "Налоговый инспектор\t";
+			string titleA = "Автоматизированное рабочее место налогового инспектора\t";
 			string title = titleA + titleP;
 			SetWindowTextA(hwnd, title.c_str());
 		}
 		if (lparam == (LPARAM)btnSearch)
 		{
-
 			GetWindowText(searchEdit, Edit1TXT, 64);
 			searchSTR = Edit1TXT;
 			lparam = (LPARAM)btnShow;
@@ -174,29 +165,28 @@ LONG WINAPI WndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam) {
 			GetWindowText(Edit4, Edit4TXT, 20);
 			GetWindowText(Edit5, Edit5TXT, 20);
 			GetWindowText(Edit6, Edit6TXT, 20);
-
 			to_add_2 = Edit2TXT;
 			to_add_3 = Edit3TXT;
 			to_add_4 = Edit4TXT;
 			to_add_5 = Edit5TXT;
 			to_add_6 = Edit6TXT;
-
-			if (len(to_add_2) < 7) {
+			if (len(to_add_2) < 6) {
 				to_add_2 += "\t";
 			}
-			if (len(to_add_3) < 7) {
+			if (len(to_add_3) < 6) {
 				to_add_3 += "\t";
 			}
-			if (len(to_add_4) < 7) {
+			if (len(to_add_4) < 6) {
+				
 				to_add_4 += "\t";
 			}
-			if (len(to_add_5) < 12) {
+			if (len(to_add_5) <= 14) {
 				to_add_5 += "\t";
-				if (len(to_add_5) <= 7) {
+				if (len(to_add_5) <= 7)
+				{
 					to_add_5 += "\t";
 				}
 			}
-
 			ofstream out;
 			out.open(path, std::ios::app);
 			out << to_add_2 << "\t|" << to_add_3 << "\t|" << to_add_4 << "\t|" << to_add_5 << "\t|" << to_add_6 << "\t|" << endl;
@@ -205,14 +195,12 @@ LONG WINAPI WndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam) {
 		}
 		if (lparam == (LPARAM)btnEditOK)
 		{
-
 			GetWindowText(Edit1, Edit1TXT, 64);
 			GetWindowText(Edit2, Edit2TXT, 64);
 			GetWindowText(Edit3, Edit3TXT, 64);
 			GetWindowText(Edit4, Edit4TXT, 64);
 			GetWindowText(Edit5, Edit5TXT, 64);
 			GetWindowText(Edit6, Edit6TXT, 64);
-
 			fstream in(path);
 			if (in.is_open())
 			{
@@ -226,9 +214,7 @@ LONG WINAPI WndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam) {
 				}
 			}
 			in.close();
-
 			string* mass = new string[strings];
-
 			in.open(path);
 			if (in.is_open())
 			{
@@ -239,25 +225,25 @@ LONG WINAPI WndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam) {
 				}
 			}
 			in.close();
-
 			to_add_2 = Edit2TXT;
 			to_add_3 = Edit3TXT;
 			to_add_4 = Edit4TXT;
 			to_add_5 = Edit5TXT;
 			to_add_6 = Edit6TXT;
-
-			if (len(to_add_2) < 7) {
+			if (len(to_add_2) < 6) {
 				to_add_2 += "\t";
 			}
-			if (len(to_add_3) < 7) {
+			if (len(to_add_3) < 6) {
 				to_add_3 += "\t";
 			}
-			if (len(to_add_4) < 7) {
+			if (len(to_add_4) < 6) {
+
 				to_add_4 += "\t";
 			}
-			if (len(to_add_5) < 12) {
+			if (len(to_add_5) <= 14) {
 				to_add_5 += "\t";
-				if (len(to_add_5) <= 7) {
+				if (len(to_add_5) <= 7)
+				{
 					to_add_5 += "\t";
 				}
 			}
@@ -274,18 +260,15 @@ LONG WINAPI WndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam) {
 				}
 			}
 			file.close();
-
 			lparam = (LPARAM)btnShow;
 		}
 		if (lparam == (LPARAM)btnDeleteOK)
 		{
 			GetWindowText(deleteEdit, lineToDel, 64);
 			lineNToDel = StrToInt(lineToDel) - 1;
-
 			fl = 0;
 			fl1 = 0;
 			countOfLinesInFile = 0;
-
 			fstream in(path);
 			if (in.is_open())
 			{
@@ -295,9 +278,7 @@ LONG WINAPI WndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam) {
 				}
 			}
 			in.close();
-
 			string* mass = new string[countOfLinesInFile];
-
 			in.open(path);
 			if (in.is_open())
 			{
@@ -312,7 +293,6 @@ LONG WINAPI WndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam) {
 				}
 			}
 			in.close();
-
 			ofstream ofs;
 			ofs.open(path, std::ofstream::out | std::ofstream::trunc);
 			ofs.close();
@@ -441,7 +421,6 @@ LONG WINAPI WndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam) {
 			ShowWindow(btnFile, SW_SHOWNORMAL);
 			ShowWindow(btnAdd, SW_SHOWNORMAL);
 			ShowWindow(btnEdit, SW_SHOWNORMAL);
-
 			ShowWindow(hStat, SW_HIDE);
 			ShowWindow(btnBack, SW_HIDE);
 			ShowWindow(btnAddOK, SW_HIDE);
@@ -458,7 +437,6 @@ LONG WINAPI WndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam) {
 			ShowWindow(Edit5, SW_HIDE);
 			ShowWindow(Edit6, SW_HIDE);
 		}
-
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);

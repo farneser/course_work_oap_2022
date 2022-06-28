@@ -20,7 +20,7 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 
 static HWND hEdt1, hEdt2, hStat, hStatMAIN, hStatSEARCH, hList, btnBack, btnAddOK,
 btnDeleteOK, btnRefresh, btnAdd, btnShow, btnFile, btnDelete, btnEdit, btnSearch,
-btnEditOK, Edit1, Edit2, Edit3, Edit4, Edit5, Edit6, deleteEdit, searchEdit;
+btnAbout, btnEditOK, Edit1, Edit2, Edit3, Edit4, Edit5, Edit6, deleteEdit, searchEdit;
 
 string to_add_2, to_add_3, to_add_4, to_add_5, to_add_6, line, searchSTR = "|";
 
