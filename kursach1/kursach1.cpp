@@ -33,7 +33,7 @@ int  WINAPI WinMain(HINSTANCE  hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
 
 using namespace std;
-LONG WINAPI WndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam) {
+LRESULT WINAPI WndProc(HWND hwnd, UINT Message, WPARAM wparam, LPARAM lparam) {
 	setlocale(LC_ALL, "ru");
 	IFileOpenDialog* pFileOpen;
 	root = CreateMenu();
